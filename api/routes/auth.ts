@@ -8,7 +8,7 @@ const router = express.Router();
 const prisma = new PrismaClient();
 
 //API for register a new user
-router.post("/api/auth/register", async (req, res) => {
+router.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
   const hashPassword = await bcrypt.hash(password, 10);
   const user = await prisma.user.create({
@@ -21,7 +21,7 @@ router.post("/api/auth/register", async (req, res) => {
 });
 
 //API for login
-router.post("/api/auth/login", async (req, res) => {
+router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await prisma.user.findUnique({ where: { email } });
 
