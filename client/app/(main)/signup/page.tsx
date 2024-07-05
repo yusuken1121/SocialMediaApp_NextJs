@@ -1,16 +1,32 @@
 "use client";
+import apiClient from "@/lib/apiClient";
 import Head from "next/head";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+
 import React, { ChangeEvent, FormEvent, useState } from "react";
 
 const Signup = () => {
-  const [name, setName] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const router = useRouter();
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(name, email, password);
+    // api
+    try {
+      await apiClient.post("/auth/register", {
+        username,
+        email,
+        password,
+      });
+      router.push("/login");
+    } catch (error) {
+      console.error("API call failed", error);
+    }
   };
 
   return (
@@ -45,7 +61,7 @@ const Signup = () => {
                   required
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setName(e.target.value)
+                    setUsername(e.target.value)
                   }
                 />
               </div>
