@@ -18,6 +18,7 @@ router.post("/register", async (req, res) => {
       password: hashPassword,
     },
   });
+  res.status(201).json(user);
 });
 
 //API for login
