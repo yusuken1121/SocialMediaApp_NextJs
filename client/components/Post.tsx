@@ -1,7 +1,13 @@
+import { PostType } from "@/app/types/types";
 import Image from "next/image";
-import React from "react";
+import React, { FC } from "react";
 
-const Post = () => {
+type postPropsType = {
+  post: PostType;
+};
+
+const Post: FC<postPropsType> = ({ post }) => {
+  const { author, createdAt, content } = post;
   return (
     <div className="bg-white shadow-md rounded p-4 mb-4">
       <div className="mb-4">
@@ -14,11 +20,12 @@ const Post = () => {
             height={10}
           />
           <div>
-            <h2 className="font-semibold text-md">John</h2>
-            <p className="text-gray-500 text-sm">04/04 13:12</p>
+            <h2 className="font-semibold text-md">{author?.username}</h2>
+            {/* temporary "author?" */}
+            <p className="text-gray-500 text-sm">{createdAt}</p>
           </div>
         </div>
-        <p className="text-gray-700">Initial comment</p>
+        <p className="text-gray-700">{content}</p>
       </div>
     </div>
   );
