@@ -1,5 +1,5 @@
 "use client";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import Post from "./Post";
 import apiClient from "@/lib/apiClient";
 import { PostType } from "@/app/types/types";
@@ -8,6 +8,20 @@ const Timeline = () => {
   const [postText, setPostText] = useState<string>("");
   const [latestPost, setLatestPost] = useState<PostType[]>([]);
 
+  //Implement initial login and reload functionality
+  useEffect(() => {
+    const fetchLatestPosts = async () => {
+      try {
+        const response = await apiClient.get("/posts/latest-posts");
+        setLatestPost(response.data.latestPosts);
+      } catch (error) {
+        alert("A server error is occured");
+      }
+    };
+    fetchLatestPosts();
+  }, []);
+
+  //Implement functionality for posting a new comment
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
