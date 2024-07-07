@@ -20,9 +20,10 @@ const Post: FC<postPropsType> = ({ post }) => {
             height={10}
           />
           <div>
-            <h2 className="font-semibold text-md">{author?.username}</h2>
-            {/* temporary "author?" */}
-            <p className="text-gray-500 text-sm">{createdAt}</p>
+            <h2 className="font-semibold text-md">{author.username}</h2>
+            <p className="text-gray-500 text-sm">
+              {new Date(createdAt).toLocaleString()}
+            </p>
           </div>
         </div>
         <p className="text-gray-700">{content}</p>
