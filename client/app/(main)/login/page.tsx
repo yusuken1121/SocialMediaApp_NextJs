@@ -1,14 +1,16 @@
 "use client";
+import { AuthCtx } from "@/context/Auth";
 import apiClient from "@/lib/apiClient";
 import Head from "next/head";
 import { useRouter } from "next/navigation";
 
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useContext, useState } from "react";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const router = useRouter();
+  const { login } = useContext(AuthCtx);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -19,7 +21,7 @@ const Login = () => {
         password,
       });
       const token = response.data.token;
-      console.log(token);
+      login(token);
       router.push("/");
     } catch (error) {
       console.error("API call failed", error);
