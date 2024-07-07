@@ -1,20 +1,24 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
+import { AuthRequest, isAuthenticated } from "../middlewares/isAuthenticated";
 
 const router = express.Router();
 
 const prisma = new PrismaClient();
 
 //API for comment post
-router.post("/post", async (req, res) => {
+router.post("/post", isAuthenticated, async (req: AuthRequest, res) => {
   const { content } = req.body;
   if (!content) return res.status(400).json({ message: "Content is missing" });
+  if (!req.userId) {
+    return res.status(401).json({ message: "User ID is missing in request" });
+  }
 
   try {
     const newPost = await prisma.post.create({
       data: {
         content,
-        authorId: 1, // temporary hard
+        authorId: req.userId,
       },
       include: {
         author: true,

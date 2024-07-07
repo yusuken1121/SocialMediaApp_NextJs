@@ -1,5 +1,6 @@
 "use client";
-import React, { FC, ReactNode, createContext } from "react";
+import apiClient from "@/lib/apiClient";
+import React, { FC, ReactNode, createContext, useEffect } from "react";
 
 type AuthCtxType = {
   login: (token: string) => void;
@@ -18,6 +19,11 @@ const defaultAuthCtx: AuthCtxType = {
 export const AuthCtx = createContext(defaultAuthCtx);
 
 export const AuthProvider: FC<authProviderType> = ({ children }) => {
+  useEffect(() => {
+    const token = localStorage.getItem("auth_token");
+    apiClient.defaults.headers["Authorization"] = `Bearer ${token}`;
+  }, []);
+
   const login = async (token: string) => {
     await localStorage.setItem("auth_token", token);
   };
