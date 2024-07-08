@@ -29,7 +29,7 @@ const defaultAuthCtx: AuthCtxType = {
   logout: () => {},
 };
 
-const getUser = (setUser: Dispatch<SetStateAction<GetUser>>) => {
+const fetchUser = (setUser: Dispatch<SetStateAction<GetUser>>) => {
   apiClient
     .get("user/find")
     .then((res) => {
@@ -49,16 +49,19 @@ export const AuthProvider: FC<authProviderType> = ({ children }) => {
     const token = localStorage.getItem("auth_token");
     if (token) {
       apiClient.defaults.headers["Authorization"] = `Bearer ${token}`;
-      getUser(setUser);
+      fetchUser(setUser);
     }
   }, []);
 
   const login = (token: string) => {
     localStorage.setItem("auth_token", token);
-    getUser(setUser);
+    apiClient.defaults.headers["Authorization"] = `Bearer ${token}`;
+    fetchUser(setUser);
   };
   const logout = () => {
     localStorage.removeItem("auth_token");
+    delete apiClient.defaults.headers["Authorization"];
+    setUser(null);
   };
 
   const value: AuthCtxType = {
