@@ -1,8 +1,20 @@
 "use client";
+import { UserType } from "@/app/types/types";
 import apiClient from "@/lib/apiClient";
-import React, { FC, ReactNode, createContext, useEffect } from "react";
+import React, {
+  Dispatch,
+  FC,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useEffect,
+  useState,
+} from "react";
+
+type GetUser = Pick<UserType, "id" | "username" | "email"> | null;
 
 type AuthCtxType = {
+  user: GetUser;
   login: (token: string) => void;
   logout: () => void;
 };
@@ -12,26 +24,45 @@ type authProviderType = {
 };
 
 const defaultAuthCtx: AuthCtxType = {
+  user: null,
   login: () => {},
   logout: () => {},
+};
+
+const getUser = (setUser: Dispatch<SetStateAction<GetUser>>) => {
+  apiClient
+    .get("user/find")
+    .then((res) => {
+      setUser(res.data.user);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 export const AuthCtx = createContext(defaultAuthCtx);
 
 export const AuthProvider: FC<authProviderType> = ({ children }) => {
+  const [user, setUser] = useState<GetUser | null>(null);
+
   useEffect(() => {
     const token = localStorage.getItem("auth_token");
-    apiClient.defaults.headers["Authorization"] = `Bearer ${token}`;
+    if (token) {
+      apiClient.defaults.headers["Authorization"] = `Bearer ${token}`;
+      getUser(setUser);
+    }
   }, []);
 
-  const login = async (token: string) => {
-    await localStorage.setItem("auth_token", token);
+  const login = (token: string) => {
+    localStorage.setItem("auth_token", token);
+    getUser(setUser);
   };
   const logout = () => {
     localStorage.removeItem("auth_token");
   };
 
   const value: AuthCtxType = {
+    user,
     login,
     logout,
   };
