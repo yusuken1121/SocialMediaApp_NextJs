@@ -16,6 +16,12 @@ router.post("/register", async (req, res) => {
       username,
       email,
       password: hashPassword,
+      profile: {
+        create: {
+          bio: "testBio", // hard-coded
+          profileImgUrl: "sample.png", // hard-coded,
+        },
+      },
     },
   });
   res.status(201).json(user);
