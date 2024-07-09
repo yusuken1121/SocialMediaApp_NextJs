@@ -8,7 +8,14 @@ const nextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "source.boringavatars.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
+    dangerouslyAllowSVG: true,
   },
 };
 

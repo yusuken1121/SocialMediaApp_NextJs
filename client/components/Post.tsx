@@ -14,7 +14,7 @@ const Post: FC<postPropsType> = ({ post }) => {
         <div className="flex items-center mb-2">
           <Image
             className="w-10 h-10 rounded-full mr-2"
-            src="https://via.placeholder.com/150"
+            src={post.author.profile?.profileImgUrl}
             alt="User Avatar"
             width={10}
             height={10}
