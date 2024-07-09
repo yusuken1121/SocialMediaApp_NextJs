@@ -2,6 +2,8 @@ import express from "express";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { generateAvatar } from "../utils/generateIdenticon";
+import { profile } from "console";
 
 const router = express.Router();
 
@@ -19,9 +21,12 @@ router.post("/register", async (req, res) => {
       profile: {
         create: {
           bio: "testBio", // hard-coded
-          profileImgUrl: "sample.png", // hard-coded,
+          profileImgUrl: generateAvatar(email),
         },
       },
+    },
+    include: {
+      profile: true,
     },
   });
   res.status(201).json(user);
