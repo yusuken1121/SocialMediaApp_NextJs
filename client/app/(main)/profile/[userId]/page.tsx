@@ -1,15 +1,13 @@
 "use client";
-import { ProfileType } from "@/app/types/types";
+import { PostType, ProfileType } from "@/app/types/types";
+import Post from "@/components/Post";
 import apiClient from "@/lib/apiClient";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-type UserProfileType = {
-  profileData: ProfileType;
-};
-
 const UserProfile = ({ params }: { params: { userId: string } }) => {
   const [profile, setProfile] = useState<ProfileType | null>(null);
+  const [posts, setPosts] = useState<PostType[] | null>(null);
   const { userId } = params;
 
   useEffect(() => {
@@ -22,9 +20,21 @@ const UserProfile = ({ params }: { params: { userId: string } }) => {
         console.error("Error fetching profile data:", error);
       }
     };
+    const fetchUserPosts = async () => {
+      try {
+        const userPostsData = await apiClient.get(`posts/${userId}/user-posts`);
+        const { userPosts } = userPostsData.data;
+        console.log(userPosts);
+        setPosts(userPosts);
+      } catch (error) {
+        console.error("Error fetching user posts data:", error);
+      }
+    };
     fetchProfile();
+    fetchUserPosts();
   }, [userId]);
-  console.log(`profile:${JSON.stringify(profile)}`);
+
+  console.log(`posts:${JSON.stringify(posts)}`);
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="w-full max-w-xl mx-auto">
@@ -45,24 +55,10 @@ const UserProfile = ({ params }: { params: { userId: string } }) => {
             </div>
           </div>
         </div>
-        <div className="bg-white shadow-md rounded p-4 mb-4">
-          <div className="mb-4">
-            <div className="flex items-center mb-2">
-              <Image
-                src=""
-                className="w-10 h-10 rounded-full mr-2"
-                alt="User Avatar"
-              />
-              <div>
-                <h2 className="font-semibold text-md">
-                  {profile?.profile.username}
-                </h2>
-                <p className="text-gray-500 text-sm">May 8, 2023</p>
-              </div>
-            </div>
-            <p className="text-gray-700">This is my first post.</p>
-          </div>
-        </div>
+        {posts?.map((post) => {
+          console.log(post);
+          return <Post key={post.id} post={post} />;
+        })}
       </div>
     </div>
   );

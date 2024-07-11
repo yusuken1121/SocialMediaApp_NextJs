@@ -1,6 +1,7 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
 import { AuthRequest, isAuthenticated } from "../middlewares/isAuthenticated";
+import { profile } from "console";
 
 const router = express.Router();
 
@@ -54,6 +55,24 @@ router.get("/latest-posts", async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "server error is occured" });
   }
+});
+
+//API to filter the post by user
+router.get("/:userId/user-posts", async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const userPosts = await prisma.post.findMany({
+      where: { authorId: parseInt(userId) },
+      orderBy: { createdAt: "desc" },
+      include: { author: { include: { profile: true } } },
+    });
+    return res.json({ userPosts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "cannot find posts" });
+  }
+
+  res.status(200).json();
 });
 
 export default router;
