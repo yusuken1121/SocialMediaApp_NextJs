@@ -5,6 +5,7 @@ import postRouter from "./routes/posts";
 import userRouter from "./routes/user";
 import cors from "cors";
 import morgan from "morgan";
+import { setUpCronJobs } from "./cron/cron";
 const app = express();
 const PORT = 5001;
 
@@ -14,4 +15,5 @@ app.use(morgan("tiny"));
 app.use("/auth", authRouter);
 app.use("/posts", postRouter);
 app.use("/user", userRouter);
+setUpCronJobs();
 app.listen(PORT, () => console.log(`server is running on PORT ${PORT}`));
