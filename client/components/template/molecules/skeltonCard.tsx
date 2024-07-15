@@ -1,5 +1,5 @@
 import React from "react";
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "../../ui/skeleton";
 export const SkeletonCard = () => {
   return (
     <div className="bg-white shadow-md rounded p-4 mb-4">

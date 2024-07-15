@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/template/organisms/Navbar";
 
 const MainLayout = ({
   children,

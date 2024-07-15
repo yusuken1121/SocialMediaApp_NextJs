@@ -1,6 +1,7 @@
 "use client";
 import { PostType, ProfileType } from "@/app/types/types";
-import Post from "@/components/Post";
+import Post from "@/components/template/organisms/Post";
+
 import apiClient from "@/lib/apiClient";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";

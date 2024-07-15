@@ -1,5 +1,4 @@
-import Post from "@/components/Post";
-import Timeline from "@/components/Timeline";
+import Timeline from "@/components/template/organisms/Timeline";
 
 export default function Home() {
   return (
