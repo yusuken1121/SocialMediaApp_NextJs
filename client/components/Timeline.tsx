@@ -3,10 +3,12 @@ import React, { FormEvent, useEffect, useState } from "react";
 import Post from "./Post";
 import apiClient from "@/lib/apiClient";
 import { PostType } from "@/app/types/types";
+import { SkeletonCard } from "./template/skeltonCard";
 
 const Timeline = () => {
   const [postText, setPostText] = useState<string>("");
   const [latestPost, setLatestPost] = useState<PostType[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   //Implement initial login and reload functionality
   useEffect(() => {
@@ -16,6 +18,8 @@ const Timeline = () => {
         setLatestPost(response.data.latestPosts);
       } catch (error) {
         alert("A server error is occured");
+      } finally {
+        setLoading(false);
       }
     };
     fetchLatestPosts();
@@ -56,9 +60,11 @@ const Timeline = () => {
             </button>
           </form>
         </div>
-        {latestPost.map((post: PostType) => {
-          return <Post key={post.id} post={post} />;
-        })}
+        {loading
+          ? [...Array(6)].map((_, i) => <SkeletonCard key={i} />)
+          : latestPost.map((post: PostType) => {
+              return <Post key={post.id} post={post} />;
+            })}
       </main>
     </div>
   );
