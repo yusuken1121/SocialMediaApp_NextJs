@@ -3,7 +3,7 @@ import React, { FormEvent, useEffect, useState } from "react";
 import Post from "./Post";
 import apiClient from "@/lib/apiClient";
 import { PostType } from "@/app/types/types";
-import { SkeletonCard } from "../molecules/skeltonCard";
+import { SkeletonCard } from "../molecules/SkeletonCard";
 
 const Timeline = () => {
   const [postText, setPostText] = useState<string>("");
