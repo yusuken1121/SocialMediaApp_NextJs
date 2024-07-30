@@ -29,10 +29,7 @@ const Login = () => {
   };
   return (
     <div>
-      <div
-        style={{ height: "88vh" }}
-        className="flex flex-col justify-center py-12 sm:px-6 lg:px-8"
-      >
+      <div style={{ height: "88vh" }} className="auth-background">
         <Head>
           <title>Login</title>
         </Head>

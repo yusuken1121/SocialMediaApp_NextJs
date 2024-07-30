@@ -31,10 +31,7 @@ const Signup = () => {
 
   return (
     <div>
-      <div
-        style={{ height: "88vh" }}
-        className="flex flex-col justify-center sm:px-6 lg:px-8"
-      >
+      <div style={{ height: "88vh" }} className="auth-background">
         <Head>
           <title>Create Account</title>
         </Head>

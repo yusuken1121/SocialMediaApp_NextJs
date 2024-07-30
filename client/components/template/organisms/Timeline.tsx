@@ -40,7 +40,7 @@ const Timeline = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-tl-bg">
       <main className="container mx-auto py-4">
         <div className="bg-white shadow-md rounded p-4 mb-4">
           <form onSubmit={handleSubmit}>
