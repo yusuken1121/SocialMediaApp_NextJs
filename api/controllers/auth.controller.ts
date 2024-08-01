@@ -18,7 +18,7 @@ export const register = async (req: Request, res: Response) => {
         profile: {
           create: {
             bio: "testBio", // hard-coded
-            profileImgUrl: generateAvatar(email),
+            profileImgUrl: generateAvatar(),
           },
         },
       },
