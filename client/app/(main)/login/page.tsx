@@ -1,4 +1,5 @@
 "use client";
+import { ToastWithTitle } from "@/components/template/atoms/Toast";
 import { AuthCtx } from "@/context/Auth";
 import apiClient from "@/lib/apiClient";
 import Head from "next/head";
@@ -9,6 +10,7 @@ import React, { FormEvent, useContext, useState } from "react";
 const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [showToast, setShowToast] = useState<boolean>(false);
   const router = useRouter();
   const { login } = useContext(AuthCtx);
 
@@ -25,10 +27,21 @@ const Login = () => {
       router.push("/");
     } catch (error) {
       console.error("API call failed", error);
+      setShowToast(true);
     }
   };
   return (
     <div>
+      <div>
+        {showToast && (
+          <ToastWithTitle
+            title="Uh oh! Something went wrong."
+            description="There was a problem with your request."
+            open={showToast}
+            setOpen={setShowToast}
+          />
+        )}
+      </div>
       <div style={{ height: "88vh" }} className="auth-background">
         <Head>
           <title>Login</title>

@@ -5,11 +5,13 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 
 import React, { ChangeEvent, FormEvent, useState } from "react";
+import { ToastWithTitle } from "@/components/template/atoms/Toast";
 
 const Signup = () => {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [showToast, setShowToast] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -26,11 +28,22 @@ const Signup = () => {
       router.push("/login");
     } catch (error) {
       console.error("API call failed", error);
+      setShowToast(true);
     }
   };
 
   return (
     <div>
+      <div>
+        {showToast && (
+          <ToastWithTitle
+            title="Uh oh! Something went wrong."
+            description="There was a problem with your request."
+            open={showToast}
+            setOpen={setShowToast}
+          />
+        )}
+      </div>
       <div style={{ height: "88vh" }} className="auth-background">
         <Head>
           <title>Create Account</title>

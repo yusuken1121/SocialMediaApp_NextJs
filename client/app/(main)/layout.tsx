@@ -1,4 +1,5 @@
 import Navbar from "@/components/template/organisms/Navbar";
+import { Toaster } from "@/components/ui/toaster";
 
 const MainLayout = ({
   children,
@@ -9,6 +10,7 @@ const MainLayout = ({
     <div>
       <Navbar />
       <main>{children}</main>
+      <Toaster />
     </div>
   );
 };
