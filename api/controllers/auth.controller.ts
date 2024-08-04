@@ -17,7 +17,7 @@ export const register = async (req: Request, res: Response) => {
         password: hashPassword,
         profile: {
           create: {
-            bio: "testBio", // hard-coded
+            bio: "Bio",
             profileImgUrl: generateAvatar(),
           },
         },
