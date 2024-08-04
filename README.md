@@ -10,7 +10,7 @@ I wanted to develop a new service that embraces the functionality of current soc
 
 ## Preview
 
-![SocialApp](https://s4.aconvert.com/convert/p3r68-cdx67/ao3fb-fpqr2.png)
+<img width="1409" alt="social_media_app" src="https://github.com/user-attachments/assets/e02bdb2f-3d36-46d3-be7d-74ecba66024b">
 
 ## Demo
 
@@ -49,7 +49,7 @@ Password: test
 
 ## ER Diagram
 
-![ER Diagram](https://s4.aconvert.com/convert/p3r68-cdx67/axa5g-v2jet.png)
+![ERD](https://github.com/user-attachments/assets/ced82fc5-a0a0-4eb5-9a0c-8d644813bf68)
 
 ## **Challenges**
 
