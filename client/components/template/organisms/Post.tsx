@@ -20,6 +20,7 @@ const Post: FC<postPropsType> = ({ post }) => {
               alt="User Avatar"
               width={10}
               height={10}
+              unoptimized={true}
             />
           </Link>
           <div>

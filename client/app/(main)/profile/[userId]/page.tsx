@@ -47,6 +47,7 @@ const UserProfile = ({ params }: { params: { userId: string } }) => {
               height={40}
               className="w-20 h-20 rounded-full mr-4"
               alt="User Avatar"
+              unoptimized={true}
             />
             <div>
               <h2 className="text-2xl font-semibold mb-1">
